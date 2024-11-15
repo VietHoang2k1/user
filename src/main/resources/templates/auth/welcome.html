@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Welcome</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>
+        <!-- Hiển thị lời chào khác nhau tùy thuộc vào vai trò -->
+        <span th:text="${isAdmin} ? 'Xin chào admin, ' : 'Xin chào '"></span>
+        <!-- Liên kết tới trang profile của người dùng -->
+        <a th:href="@{/profile}" th:text="${username}"></a>
+    </h2>
+    <!-- Nút đi đến trang quản lý chỉ hiển thị nếu là admin -->
+    <a th:href="@{/users}" th:if="${isAdmin}" class="btn btn-primary mt-3">Đi đến trang quản lý người dùng</a>
+    <form th:action="@{/logout}" method="post">
+        <button type="submit" class="btn btn-secondary mt-3">Đăng xuất</button>
+    </form>
+</div>
+</body>
+</html>

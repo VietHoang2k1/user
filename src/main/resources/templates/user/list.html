@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="mb-4">User List</h2>
+    <a th:href="@{/users/form}" class="btn btn-primary mb-3">Add User</a>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Phone</th>
+<!--            <th>Status</th>-->
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.phone}"></td>
+<!--            <td>-->
+<!--                <span th:text="${user.active} ? 'Active' : 'Banned'"></span>-->
+<!--            </td>-->
+            <td>
+                <a th:href="@{/users/edit/{id}(id=${user.id})}" class="btn btn-warning">Edit</a>
+                <a th:href="@{/users/delete/{id}(id=${user.id})}" class="btn btn-danger">Delete</a>
+                <!-- Nút khóa/mở khóa tài khoản -->
+                <form th:action="@{/users/toggleActive/{id}(id=${user.id})}" method="post" style="display:inline;">
+                    <button type="submit" th:text="${user.active} ? 'Ban' : 'Activate'"
+                            class="btn" th:classappend="${user.active} ? 'btn-danger' : 'btn-success'"></button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <a th:href="@{/}" class="btn btn-secondary mt-3">Back to Home</a>
+</div>
+</body>
+</html>
